@@ -1,0 +1,55 @@
+.searchInputContainer {
+    position: relative;
+}
+
+.searchInputField {
+    padding-block: 0.6em;
+    padding-inline: 0.8rem;
+    border: 1px solid #8f8f8f;
+    outline: 1px solid transparent;
+    width: 100%;
+}
+
+.searchInputField:focus {
+    outline-color: #000;
+    border-color: #000;
+}
+
+.searchIcon {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    position: absolute;
+    left: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8f8f8f;
+    cursor: pointer;
+}
+
+.searchDelete {
+    display: none;
+    position: absolute;
+    right: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8f8f8f;
+    cursor: pointer;
+}
+
+.searchInputContainer:focus-within .searchDelete {
+    display: flex;
+}
+
+.searchInputContainer:focus-within .searchIcon {
+    display: none;
+}
+
+.searchInputField::placeholder {
+    visibility: hidden;
+}
+
+.searchInputContainer:focus-within .searchInputField::placeholder {
+    visibility: visible;
+}
+
