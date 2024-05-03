@@ -27,29 +27,31 @@ const Search = () => {
   useDebounce(handleSearch, 500, [searchText]);
 
   return (
-    <div className={styles.searchInputContainer}>
-      <input
-        type="text"
-        placeholder="Search"
-        className={styles.searchInputField}
-        value={searchText}
-        onChange={(event) => setSearchText(event.target.value)}
-      />
-      {!searchText && (
-        <div className={styles.searchIcon}>
-          <IoSearch />
-          <span>Search</span>
-        </div>
-      )}
-
-      <button type="button" className={styles.searchDelete} ref={clearRef}>
-        <CgCloseO
-          onClick={() => {
-            setSearchText("");
-            clearRef.current?.blur();
-          }}
+    <div className={styles.searchWrapper}>
+      <div className={styles.searchInputContainer}>
+        <input
+          type="text"
+          placeholder="Enter what you are looking for"
+          className={styles.searchInputField}
+          value={searchText}
+          onChange={(event) => setSearchText(event.target.value)}
         />
-      </button>
+        {!searchText && (
+          <div className={styles.searchIcon}>
+            <IoSearch />
+            <span>Search</span>
+          </div>
+        )}
+
+        <button type="button" className={styles.searchDelete} ref={clearRef}>
+          <CgCloseO
+            onClick={() => {
+              setSearchText("");
+              clearRef.current?.blur();
+            }}
+          />
+        </button>
+      </div>
     </div>
   );
 };

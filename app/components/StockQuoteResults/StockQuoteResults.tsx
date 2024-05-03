@@ -5,11 +5,15 @@ interface StockQuoteResultsProps {
 }
 
 const StockQuoteResults = ({ quotes }: StockQuoteResultsProps) => {
-  console.log(quotes);
+  //console.log(quotes);
   return (
     <div>
       {quotes.map((quote) => {
-        return <div key={quote.symbol}>{quote.name}</div>;
+        return (
+          <div key={quote.symbol}>
+            {quote.symbol} {quote.name}
+          </div>
+        );
       })}
     </div>
   );

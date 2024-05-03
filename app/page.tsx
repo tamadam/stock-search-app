@@ -9,13 +9,17 @@ interface SearchPageProps {
 const apiKey = process.env.ALPHAVANTAGE_API_KEY;
 
 const getQuotes = async (searchQuery: string) => {
-  const targetUrl = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchQuery}&apikey=${apiKey}`;
+  let targetUrl = "";
+  if (searchQuery) {
+    targetUrl = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchQuery}&apikey=${apiKey}`;
+  } else {
+    targetUrl =
+      "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=tesco&apikey=demo";
+  }
+
   console.log(targetUrl);
 
-  const demoTargetUrl =
-    "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=tesco&apikey=demo";
-
-  const res = await fetch(demoTargetUrl, {
+  const res = await fetch(targetUrl, {
     cache: "no-store",
   });
 
@@ -28,8 +32,9 @@ const SearchPage = async ({ searchParams }: SearchPageProps) => {
     : searchParams["query"] ?? "";
 
   const quotes: StockQuote = await getQuotes(searchQuery);
+  console.log(quotes);
 
-  const formattedQuotes: FormattedStockQuote[] = quotes.bestMatches.map(
+  const formattedQuotes: FormattedStockQuote[] = quotes?.bestMatches.map(
     (quote) => {
       return {
         symbol: quote["1. symbol"],
@@ -46,14 +51,18 @@ const SearchPage = async ({ searchParams }: SearchPageProps) => {
   );
 
   return (
-    <main className="flex flex-col gap-4 items-center min-h-svh mt-5 px-2">
-      <div>
-        <h1 className="font-bold text-center">
-          Enter what you are looking for
-        </h1>
-        <Search />
+    <main className="">
+      <div className="m-4 bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-md p-8 md:p-12 text-center max-w-[1200px]">
+        <div>
+          <h1 className="font-bold text-2xl md:text-4xl text-[#ffe30d] mb-4">
+            Alpha Vantage Stock Quotes
+          </h1>
+          <Search />
+        </div>
       </div>
-      <StockQuoteResults quotes={formattedQuotes} />
+      <div className="m-4 text-left">
+        <StockQuoteResults quotes={formattedQuotes} />
+      </div>
     </main>
   );
 };

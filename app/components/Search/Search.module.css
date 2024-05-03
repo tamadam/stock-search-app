@@ -1,3 +1,9 @@
+.searchWrapper {
+    display: grid;
+    gap: 0.4em;
+}
+
+
 .searchInputContainer {
     position: relative;
 }
