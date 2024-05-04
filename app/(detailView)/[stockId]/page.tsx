@@ -1,3 +1,4 @@
+import { fetchData } from "@/app/utils/fetchData";
 import {
   ALPHAVANTAGE_API_KEY,
   FormattedGlobalQuote,
@@ -6,16 +7,11 @@ import {
 import StockQuoteDetails from "../components/StockQuoteDetails/StockQuoteDetails";
 
 const getQuote = async (symbol: string) => {
-  return {}; // prevent fetch because of the daily limit
   const targetUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${ALPHAVANTAGE_API_KEY}`;
 
-  console.log(targetUrl);
+  // console.log(targetUrl);
 
-  const res = await fetch(targetUrl, {
-    cache: "no-store",
-  });
-
-  return res.json();
+  return fetchData(targetUrl);
 };
 
 interface DetailsPageProps {
@@ -24,7 +20,7 @@ interface DetailsPageProps {
 
 const DetailsPage = async ({ params }: DetailsPageProps) => {
   const quote: GlobalQuote = await getQuote(params.stockId);
-  console.log(quote);
+  // console.log(quote);
 
   const formattedQuote: FormattedGlobalQuote = {
     symbol: quote["Global Quote"]?.["01. symbol"] || "",
@@ -39,7 +35,7 @@ const DetailsPage = async ({ params }: DetailsPageProps) => {
     changePercent: quote["Global Quote"]?.["10. change percent"] || "",
   };
 
-  console.log(formattedQuote);
+  // console.log(formattedQuote);
 
   return <StockQuoteDetails quote={formattedQuote} />;
 };

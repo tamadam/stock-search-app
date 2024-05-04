@@ -6,6 +6,7 @@ import {
   StockQuote,
 } from "../types";
 import { Metadata } from "next";
+import { fetchData } from "../utils/fetchData";
 
 interface SearchPageProps {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -20,13 +21,9 @@ const getQuotes = async (searchQuery: string) => {
       "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=tesco&apikey=demo";
   }
 
-  console.log(targetUrl);
+  // console.log(targetUrl);
 
-  const res = await fetch(targetUrl, {
-    cache: "no-store",
-  });
-
-  return res.json();
+  return fetchData(targetUrl);
 };
 
 const SearchPage = async ({ searchParams }: SearchPageProps) => {
@@ -35,7 +32,7 @@ const SearchPage = async ({ searchParams }: SearchPageProps) => {
     : searchParams["query"] ?? "";
 
   const quotes: StockQuote = await getQuotes(searchQuery);
-  console.log(quotes);
+  // console.log(quotes);
 
   const formattedQuotes: FormattedStockQuote[] = quotes?.bestMatches.map(
     (quote) => {
