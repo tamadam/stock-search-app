@@ -1,5 +1,5 @@
-import StockQuoteResults from "../components/StockQuoteResults/StockQuoteResults";
-import Search from "../components/Search/Search";
+import StockQuoteResults from "./components/StockQuoteResults/StockQuoteResults";
+import Search from "./components/Search/Search";
 import {
   ALPHAVANTAGE_API_KEY,
   FormattedStockQuote,
@@ -53,16 +53,16 @@ const SearchPage = async ({ searchParams }: SearchPageProps) => {
   );
 
   return (
-    <main className="">
-      <div className="m-4 bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-md p-8 md:p-12 text-center max-w-[1200px]">
-        <div>
-          <h1 className="font-bold text-2xl md:text-4xl text-[#ffe30d] mb-4">
+    <main>
+      <div className="flex items-center justify-center bg-sky-600 min-h-[15rem]">
+        <div className="grid gap-4 w-full max-w-[80ch] text-center px-4 ">
+          <h1 className="font-bold text-2xl md:text-4xl text-[#ffffff]">
             Alpha Vantage Stock Quotes
           </h1>
           <Search />
         </div>
       </div>
-      <div className="m-4 text-left">
+      <div className="p-4 mb-5">
         <StockQuoteResults quotes={formattedQuotes} />
       </div>
     </main>
