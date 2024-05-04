@@ -1,17 +1,19 @@
-import StockQuoteResults from "./components/StockQuoteResults/StockQuoteResults";
-import Search from "./components/Search/Search";
-import { FormattedStockQuote, StockQuote } from "./types";
+import StockQuoteResults from "../components/StockQuoteResults/StockQuoteResults";
+import Search from "../components/Search/Search";
+import {
+  ALPHAVANTAGE_API_KEY,
+  FormattedStockQuote,
+  StockQuote,
+} from "../types";
 
 interface SearchPageProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-const apiKey = process.env.ALPHAVANTAGE_API_KEY;
-
 const getQuotes = async (searchQuery: string) => {
   let targetUrl = "";
   if (searchQuery) {
-    targetUrl = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchQuery}&apikey=${apiKey}`;
+    targetUrl = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchQuery}&apikey=${ALPHAVANTAGE_API_KEY}`;
   } else {
     targetUrl =
       "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=tesco&apikey=demo";

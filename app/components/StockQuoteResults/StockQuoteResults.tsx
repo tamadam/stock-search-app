@@ -1,4 +1,5 @@
 import { FormattedStockQuote } from "@/app/types";
+import Link from "next/link";
 
 interface StockQuoteResultsProps {
   quotes: FormattedStockQuote[];
@@ -12,6 +13,9 @@ const StockQuoteResults = ({ quotes }: StockQuoteResultsProps) => {
         return (
           <div key={quote.symbol}>
             {quote.symbol} {quote.name}
+            <span style={{ display: "block" }}>
+              Link: <Link href={`/${quote.symbol}`}>View details</Link>
+            </span>
           </div>
         );
       })}
