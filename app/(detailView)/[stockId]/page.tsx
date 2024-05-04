@@ -3,6 +3,7 @@ import {
   FormattedGlobalQuote,
   GlobalQuote,
 } from "../../types";
+import StockQuoteDetails from "../components/StockQuoteDetails/StockQuoteDetails";
 
 const getQuote = async (symbol: string) => {
   return {}; // prevent fetch because of the daily limit
@@ -40,7 +41,7 @@ const DetailsPage = async ({ params }: DetailsPageProps) => {
 
   console.log(formattedQuote);
 
-  return <div>{params.stockId}</div>;
+  return <StockQuoteDetails quote={formattedQuote} />;
 };
 
 export default DetailsPage;

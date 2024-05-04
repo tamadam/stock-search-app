@@ -1,0 +1,4 @@
+.quoteDetailsWrapper {
+    display: grid;
+    gap: 0.4em;
+}
