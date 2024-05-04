@@ -5,6 +5,7 @@ import {
   FormattedStockQuote,
   StockQuote,
 } from "../types";
+import { Metadata } from "next";
 
 interface SearchPageProps {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -70,3 +71,8 @@ const SearchPage = async ({ searchParams }: SearchPageProps) => {
 };
 
 export default SearchPage;
+
+export const metadata: Metadata = {
+  title: "Stock Search App - Search View",
+  description: "Search view for finding stocks",
+};

@@ -44,4 +44,11 @@ const DetailsPage = async ({ params }: DetailsPageProps) => {
   return <StockQuoteDetails quote={formattedQuote} />;
 };
 
+export async function generateMetadata({ params }: DetailsPageProps) {
+  return {
+    title: "Stock Search App - Details View",
+    description: "View the details of " + params.stockId + " stock",
+  };
+}
+
 export default DetailsPage;
