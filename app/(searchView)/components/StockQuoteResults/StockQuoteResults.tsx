@@ -1,15 +1,37 @@
 import { FormattedStockQuote } from "@/app/types";
 import Link from "next/link";
 import styles from "./StockQuoteResults.module.css";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { MdArrowForwardIos } from "react-icons/md";
 
 interface StockQuoteResultsProps {
   quotes: FormattedStockQuote[];
 }
 
-const StockQuoteResults = ({ quotes }: StockQuoteResultsProps) => {
+const StockQuoteResults = async ({ quotes }: StockQuoteResultsProps) => {
+  const session = await getServerSession(authOptions);
+
+  const favouriteStocksInfo = {
+    href: session ? "/mystocks" : "/api/auth/signin",
+    label: session
+      ? "View your favourite stocks"
+      : "Log in to view your favourite stocks",
+  };
+
   return (
     <div className={styles.resultsWrapper}>
-      <h1 className={styles.resultsTitle}>Stock quotes</h1>
+      <div className={styles.resultsTitleWrapper}>
+        <h1 className={styles.resultsTitle}>Stock quotes</h1>
+
+        <Link href={favouriteStocksInfo.href} className={styles.resultsLink}>
+          <span>{favouriteStocksInfo.label}</span>
+          <span>
+            <MdArrowForwardIos />
+          </span>
+        </Link>
+      </div>
+
       <div className={styles.resultCards}>
         {quotes.map((quote) => {
           return (

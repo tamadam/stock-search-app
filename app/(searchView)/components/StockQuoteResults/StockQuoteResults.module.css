@@ -1,7 +1,25 @@
+.resultsTitleWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
 .resultsTitle {
     font-weight: bold;
     font-size: 1.4em;
     margin-block-end: 0.4em;
+}
+
+.resultsLink {
+    display: flex;
+    align-items: center;
+    color: grey;
+    border-bottom: 1px solid transparent;
+}
+
+.resultsLink:hover {
+    border-color: grey;
 }
 
 .resultCards {
