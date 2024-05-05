@@ -1,0 +1,14 @@
+.cardSaveButton {
+    background: #0ac31c;
+    color: #fff;
+    font-weight: bold;
+    padding: 0.6em;
+    border-radius: 0.4em;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cardSaveButton:hover {
+    background: #0ca61b;
+}

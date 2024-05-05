@@ -4,6 +4,7 @@ import styles from "./StockQuoteResults.module.css";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { MdArrowForwardIos } from "react-icons/md";
+import SaveButton from "../SaveButton/SaveButton";
 
 interface StockQuoteResultsProps {
   quotes: FormattedStockQuote[];
@@ -67,8 +68,11 @@ const StockQuoteResults = async ({ quotes }: StockQuoteResultsProps) => {
                     <span>Timezone:</span>
                     <span>{quote.timezone}</span>
                   </div>
-                  <div className={styles.cardDetailButton}>
-                    <Link href={`/${quote.symbol}`}>View details</Link>
+                  <div className={styles.actionButtons}>
+                    {session && <SaveButton />}
+                    <div className={styles.cardDetailButton}>
+                      <Link href={`/${quote.symbol}`}>View details</Link>
+                    </div>
                   </div>
                 </div>
               </div>

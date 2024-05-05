@@ -87,19 +87,28 @@
     font-weight: bold;
 }
 
-
-.cardDetailButton {
+.actionButtons {
     margin-block-start: 1em;
     justify-self: end;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em;
+}
+
+
+.cardDetailButton {
     background: #0171fb;
     color: #fff;
     font-weight: bold;
     padding: 0.6em;
     border-radius: 0.4em;
     box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
-    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
 .cardDetailButton:hover {
     background: #0461d2;
 }
+
