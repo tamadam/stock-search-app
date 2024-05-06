@@ -33,7 +33,7 @@ const MyStocksList = ({ stocks }: MyStocksListProps) => {
               <div className={styles.cardContent}>
                 <div className={styles.cardDetail}>
                   <div className={styles.actionButtons}>
-                    <DeleteButton />
+                    <DeleteButton stockId={stock.id} />
                     <div className={styles.cardDetailButton}>
                       <Link href={`/${stock.symbol}`}>View details</Link>
                     </div>
