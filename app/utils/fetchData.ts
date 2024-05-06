@@ -4,4 +4,4 @@ export const fetchData = async (targetUrl: string) => {
     });
   
     return res.json();
-  };
+};
