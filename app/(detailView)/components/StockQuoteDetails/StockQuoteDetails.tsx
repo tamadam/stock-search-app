@@ -36,30 +36,42 @@ const StockQuoteDetails = ({
         <div className={`${styles.quoteWrapper} ${styles.detailCard}`}>
           <h1 className={styles.sectionTitle}>Quote</h1>
           <div className={styles.sectionContent}>
-            <div>Symbol: {quote.symbol}</div>
-            <div>Open: {quote.open}</div>
-            <div>High: {quote.high}</div>
-            <div>Low: {quote.low}</div>
-            <div>Price: {quote.price}</div>
-            <div>Volume: {quote.volume}</div>
-            <div>LatestTradingDay: {quote.latestTradingDay}</div>
-            <div>PreviousClose: {quote.previousClose}</div>
-            <div>Change: {quote.change}</div>
-            <div>Change Percent: {quote.changePercent}</div>
+            {quote ? (
+              <>
+                <div>Symbol: {quote.symbol}</div>
+                <div>Open: {quote.open}</div>
+                <div>High: {quote.high}</div>
+                <div>Low: {quote.low}</div>
+                <div>Price: {quote.price}</div>
+                <div>Volume: {quote.volume}</div>
+                <div>LatestTradingDay: {quote.latestTradingDay}</div>
+                <div>PreviousClose: {quote.previousClose}</div>
+                <div>Change: {quote.change}</div>
+                <div>Change Percent: {quote.changePercent}</div>
+              </>
+            ) : (
+              <div>No information available</div>
+            )}
           </div>
         </div>
         <div className={`${styles.companyWrapper} ${styles.detailCard}`}>
           <h1 className={styles.sectionTitle}>Company</h1>
           <div className={styles.sectionContent}>
-            <div className={styles.companyName}>{companyData.name}</div>
-            <div className={styles.companyInfo}>
-              <span>{companyData.country}</span>
-              <span>-</span>
-              <span>{companyData.sector}</span>
-            </div>
-            <div className={styles.companyDescription}>
-              {companyData.description}
-            </div>
+            {companyData.symbol ? (
+              <>
+                <div className={styles.companyName}>{companyData.name}</div>
+                <div className={styles.companyInfo}>
+                  <span>{companyData.country}</span>
+                  <span>-</span>
+                  <span>{companyData.sector}</span>
+                </div>
+                <div className={styles.companyDescription}>
+                  {companyData.description}
+                </div>
+              </>
+            ) : (
+              <div>No information available</div>
+            )}
           </div>
         </div>
         <div className={`${styles.incomeWrapper} ${styles.detailCard}`}>
@@ -67,20 +79,25 @@ const StockQuoteDetails = ({
             Total Revenue & Net income (10M)
           </h1>
           <div className={styles.sectionContent}>
-            <>
-              <Chart
-                incomeChartData={incomeChartData}
-                xKey="year"
-                lineKey="total"
-                description="Total revenue"
-              />
-              <Chart
-                incomeChartData={incomeChartData}
-                xKey="year"
-                lineKey="net"
-                description="Net income"
-              />
-            </>
+            {incomeData.length !== 0 ? (
+              <>
+                <Chart
+                  incomeChartData={incomeChartData}
+                  xKey="year"
+                  lineKey="total"
+                  description="Total revenue"
+                />
+                <Chart
+                  incomeChartData={incomeChartData}
+                  xKey="year"
+                  lineKey="net"
+                  description="Net income"
+                />
+              </>
+            ) : (
+              <div>No information available</div>
+            )}
+
             {/*           {incomeData.map((income) => {
               return (
                 <div key={income.fiscalDateEnding}>

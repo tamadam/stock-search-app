@@ -10,8 +10,8 @@ import {
 } from "../../types";
 import StockQuoteDetails from "../components/StockQuoteDetails/StockQuoteDetails";
 
-const getQuote = async (symbol: string) => {
-  const targetUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${ALPHAVANTAGE_API_KEY}`;
+const getData = async (queryType: string, symbol: string) => {
+  const targetUrl = `https://www.alphavantage.co/query?function=${queryType}&symbol=${symbol}&apikey=${ALPHAVANTAGE_API_KEY}`;
 
   // console.log(targetUrl);
 
@@ -23,19 +23,21 @@ interface DetailsPageProps {
 }
 
 const DetailsPage = async ({ params }: DetailsPageProps) => {
-  //const quote: GlobalQuote = await getQuote(params.stockId);
-  // console.log(quote);
+  // https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey=demo
+  let quote = await getData("GLOBAL_QUOTE", params.stockId);
 
-  const quote = await fetchData(
-    "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey=demo"
-  );
-  const companyData = await fetchData(
-    "https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=demo"
+  // https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=demo
+  let companyData = await getData("OVERVIEW", params.stockId);
+
+  // https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=IBM&apikey=demo
+  let income: StockAnnualReports = await getData(
+    "INCOME_STATEMENT",
+    params.stockId
   );
 
-  const income: StockAnnualReports = await fetchData(
-    "https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=IBM&apikey=demo"
-  );
+  if (!quote) {
+    quote = {};
+  }
 
   const formattedQuote: FormattedGlobalQuote = {
     symbol: quote["Global Quote"]?.["01. symbol"] || "",
@@ -50,6 +52,10 @@ const DetailsPage = async ({ params }: DetailsPageProps) => {
     changePercent: quote["Global Quote"]?.["10. change percent"] || "",
   };
 
+  if (!companyData) {
+    companyData = {};
+  }
+
   const formattedCompanyData: FormattedCompanyOverview = {
     symbol: companyData["Symbol"],
     assetType: companyData["AssetType"],
@@ -59,6 +65,10 @@ const DetailsPage = async ({ params }: DetailsPageProps) => {
     country: companyData["Country"],
     sector: companyData["Sector"],
   };
+
+  if (!income.annualReports) {
+    income.annualReports = [];
+  }
 
   const formattedIncome: FormattedAnnualReports[] = income.annualReports.map(
     (annualReport: AnnualReport): FormattedAnnualReports => {
@@ -72,6 +82,8 @@ const DetailsPage = async ({ params }: DetailsPageProps) => {
       };
     }
   );
+
+  // console.log(formattedIncome);
 
   return (
     <StockQuoteDetails
