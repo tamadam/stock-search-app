@@ -11,6 +11,9 @@ import prisma from "@/prisma/client";
 import { getServerSession } from "next-auth";
 import { Stock } from "@prisma/client";
 import authOptions from "../utils/authOptions";
+import Link from "next/link";
+import { IoExit } from "react-icons/io5";
+import { RiLoginBoxLine } from "react-icons/ri";
 
 interface SearchPageProps {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -70,6 +73,21 @@ const SearchPage = async ({ searchParams }: SearchPageProps) => {
 
   return (
     <main>
+      <nav className="flex items-center justify-end px-4 py-2 bg-sky-700 text-white">
+        {session ? (
+          <div>
+            <Link href="/api/auth/signout" className="flex items-center gap-1">
+              <span>Exit</span>
+              <IoExit />
+            </Link>
+          </div>
+        ) : (
+          <Link href="/api/auth/signin" className="flex items-center gap-1">
+            <RiLoginBoxLine />
+            <span>Login</span>
+          </Link>
+        )}
+      </nav>
       <div className="flex items-center justify-center bg-sky-600 min-h-[15rem]">
         <div className="grid gap-4 w-full max-w-[80ch] text-center px-4 ">
           <h1 className="font-bold text-2xl md:text-4xl text-[#ffffff]">
