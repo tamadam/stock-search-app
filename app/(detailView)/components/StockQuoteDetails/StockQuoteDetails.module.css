@@ -1,4 +1,76 @@
 .quoteDetailsWrapper {
     display: grid;
+    grid-template-areas:
+    "goback"
+    "company"
+    "quote"
+    "income";
+    grid-template-rows: 4ch repeat(3, 1fr);
+    grid-template-columns: 1fr;
+    column-gap: 1em;
+    row-gap: 2em;
+    margin: 1em;
+}
+
+.quoteWrapper {
+    grid-area: quote;
+}
+
+.companyWrapper {
+    grid-area: company;
+}
+
+.incomeWrapper {
+    grid-area: income;
+}
+
+.goBackWrapper {
+    grid-area: goback;
+    width: fit-content;
+}
+
+.detailCard {
+    border: 1px solid #3f3f3f;
+    border-radius: 0.4em;
+    padding: 0.4em 0.6em;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    background: #0a1b45;
+    color: #fff;
+}
+
+.sectionTitle {
+    font-weight: bold;
+    font-size: 1.4em;
+}
+
+.sectionContent {
+    margin-block-end: 0.4em;
+}
+
+.companyName {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.companyInfo {
+    display: flex;
     gap: 0.4em;
+    flex-wrap: wrap;
+    margin-bottom: 0.4em;
+}
+
+@media (min-width: 800px) {
+    .quoteDetailsWrapper {
+        grid-template-areas:
+        "company income"
+        "quote income"
+        "goback goback";
+        grid-template-rows: fit-content(8ch) fit-content(8ch) 1fr;
+/*         grid-template-rows: repeat(2, 1fr) 4ch; */
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .goBackWrapper {
+        justify-self: center;
+    }
 }

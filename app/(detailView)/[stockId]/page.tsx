@@ -1,8 +1,12 @@
 import { fetchData } from "@/app/utils/fetchData";
 import {
   ALPHAVANTAGE_API_KEY,
+  AnnualReport,
+  FormattedAnnualReports,
+  FormattedCompanyOverview,
   FormattedGlobalQuote,
   GlobalQuote,
+  StockAnnualReports,
 } from "../../types";
 import StockQuoteDetails from "../components/StockQuoteDetails/StockQuoteDetails";
 
@@ -19,8 +23,19 @@ interface DetailsPageProps {
 }
 
 const DetailsPage = async ({ params }: DetailsPageProps) => {
-  const quote: GlobalQuote = await getQuote(params.stockId);
+  //const quote: GlobalQuote = await getQuote(params.stockId);
   // console.log(quote);
+
+  const quote = await fetchData(
+    "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey=demo"
+  );
+  const companyData = await fetchData(
+    "https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=demo"
+  );
+
+  const income: StockAnnualReports = await fetchData(
+    "https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=IBM&apikey=demo"
+  );
 
   const formattedQuote: FormattedGlobalQuote = {
     symbol: quote["Global Quote"]?.["01. symbol"] || "",
@@ -35,9 +50,36 @@ const DetailsPage = async ({ params }: DetailsPageProps) => {
     changePercent: quote["Global Quote"]?.["10. change percent"] || "",
   };
 
-  // console.log(formattedQuote);
+  const formattedCompanyData: FormattedCompanyOverview = {
+    symbol: companyData["Symbol"],
+    assetType: companyData["AssetType"],
+    name: companyData["Name"],
+    description: companyData["Description"],
+    currency: companyData["Currency"],
+    country: companyData["Country"],
+    sector: companyData["Sector"],
+  };
 
-  return <StockQuoteDetails quote={formattedQuote} />;
+  const formattedIncome: FormattedAnnualReports[] = income.annualReports.map(
+    (annualReport: AnnualReport): FormattedAnnualReports => {
+      return {
+        fiscalDateEnding: annualReport.fiscalDateEnding,
+        reportedCurrency: annualReport.reportedCurrency,
+        costOfRevenue: annualReport.costOfRevenue,
+        grossProfit: annualReport.grossProfit,
+        netIncome: annualReport.netIncome,
+        totalRevenue: annualReport.totalRevenue,
+      };
+    }
+  );
+
+  return (
+    <StockQuoteDetails
+      quote={formattedQuote}
+      companyData={formattedCompanyData}
+      incomeData={formattedIncome}
+    />
+  );
 };
 
 export async function generateMetadata({ params }: DetailsPageProps) {
