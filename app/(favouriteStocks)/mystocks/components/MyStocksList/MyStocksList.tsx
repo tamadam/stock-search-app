@@ -19,31 +19,36 @@ const MyStocksList = ({ stocks }: MyStocksListProps) => {
         </span>
         <span className={styles.myStocksTitle}>Favourite stocks</span>
       </div>
-      <div className={styles.resultCards}>
-        {stocks.map((stock) => {
-          return (
-            <div key={stock.symbol} className={styles.resultCard}>
-              <div className={styles.cardTitle}>
-                <div className={styles.cardName}>
-                  <h2>{stock.name}</h2>
-                  <h4>{stock.symbol}</h4>
+
+      {stocks.length === 0 ? (
+        <div>It seems you haven&apos;t saved any favorite stocks yet.</div>
+      ) : (
+        <div className={styles.resultCards}>
+          {stocks.map((stock) => {
+            return (
+              <div key={stock.symbol} className={styles.resultCard}>
+                <div className={styles.cardTitle}>
+                  <div className={styles.cardName}>
+                    <h2>{stock.name}</h2>
+                    <h4>{stock.symbol}</h4>
+                  </div>
+                  <div className={styles.cardCurrency}>{/* placeholder */}</div>
                 </div>
-                <div className={styles.cardCurrency}>{/* placeholder */}</div>
-              </div>
-              <div className={styles.cardContent}>
-                <div className={styles.cardDetail}>
-                  <div className={styles.actionButtons}>
-                    <DeleteButton stockId={stock.id} />
-                    <div className={styles.cardDetailButton}>
-                      <Link href={`/${stock.symbol}`}>View details</Link>
+                <div className={styles.cardContent}>
+                  <div className={styles.cardDetail}>
+                    <div className={styles.actionButtons}>
+                      <DeleteButton stockId={stock.id} />
+                      <div className={styles.cardDetailButton}>
+                        <Link href={`/${stock.symbol}`}>View details</Link>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };
