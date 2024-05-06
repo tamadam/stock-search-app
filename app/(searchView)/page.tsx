@@ -14,6 +14,7 @@ import authOptions from "../utils/authOptions";
 import Link from "next/link";
 import { IoExit } from "react-icons/io5";
 import { RiLoginBoxLine } from "react-icons/ri";
+import Image from "next/image";
 
 interface SearchPageProps {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -73,19 +74,28 @@ const SearchPage = async ({ searchParams }: SearchPageProps) => {
 
   return (
     <main>
-      <nav className="flex items-center justify-end px-4 py-2 bg-sky-700 text-white">
+      <nav className="px-4 py-2 bg-sky-700 text-white">
         {session ? (
-          <div>
+          <div className="flex items-center justify-between gap-2">
+            <Image
+              src={session.user.image}
+              alt="avatar"
+              width={30}
+              height={30}
+              className="rounded-full"
+            />
             <Link href="/api/auth/signout" className="flex items-center gap-1">
               <span>Exit</span>
               <IoExit />
             </Link>
           </div>
         ) : (
-          <Link href="/api/auth/signin" className="flex items-center gap-1">
-            <RiLoginBoxLine />
-            <span>Login</span>
-          </Link>
+          <div className="w-fit ms-auto">
+            <Link href="/api/auth/signin" className="flex items-center gap-1">
+              <RiLoginBoxLine />
+              <span>Login</span>
+            </Link>
+          </div>
         )}
       </nav>
       <div className="flex items-center justify-center bg-sky-600 min-h-[15rem]">
