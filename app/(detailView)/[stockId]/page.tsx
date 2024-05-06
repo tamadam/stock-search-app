@@ -35,7 +35,9 @@ const DetailsPage = async ({ params }: DetailsPageProps) => {
     params.stockId
   );
 
-  if (!quote) {
+  // console.log(quote);
+
+  if (!quote["Global Quote"]?.["01. symbol"]) {
     quote = {};
   }
 

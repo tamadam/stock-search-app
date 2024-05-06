@@ -36,7 +36,7 @@ const StockQuoteDetails = ({
         <div className={`${styles.quoteWrapper} ${styles.detailCard}`}>
           <h1 className={styles.sectionTitle}>Quote</h1>
           <div className={styles.sectionContent}>
-            {quote ? (
+            {quote.symbol ? (
               <>
                 <div>Symbol: {quote.symbol}</div>
                 <div>Open: {quote.open}</div>
