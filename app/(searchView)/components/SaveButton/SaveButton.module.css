@@ -9,6 +9,15 @@
     transition: all 0.2s;
 }
 
+.cardSaveButton.saved {
+    background: #d10c0c;
+
+}
+
 .cardSaveButton:hover {
     background: #0ca61b;
+}
+
+.cardSaveButton.saved:hover {
+    background: #ff1818;
 }

@@ -69,7 +69,13 @@ const StockQuoteResults = async ({ quotes }: StockQuoteResultsProps) => {
                     <span>{quote.timezone}</span>
                   </div>
                   <div className={styles.actionButtons}>
-                    {session && <SaveButton name={quote.name} symbol={quote.symbol} />}
+                    {session && (
+                      <SaveButton
+                        name={quote.name}
+                        symbol={quote.symbol}
+                        saved={quote.saved}
+                      />
+                    )}
                     <div className={styles.cardDetailButton}>
                       <Link href={`/${quote.symbol}`}>View details</Link>
                     </div>

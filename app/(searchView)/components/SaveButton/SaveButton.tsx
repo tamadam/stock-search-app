@@ -9,13 +9,14 @@ import Spinner from "@/app/components/Spinner/Spinner";
 interface SaveButtonProps {
   name: string;
   symbol: string;
+  saved: boolean;
 }
 
-const SaveButton = ({ name, symbol }: SaveButtonProps) => {
+const SaveButton = ({ name, symbol, saved }: SaveButtonProps) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  const saveToDatabase = async () => {
+  const handleButtonClicked = async () => {
     try {
       setIsLoading(true);
       const stockData = {
@@ -49,16 +50,20 @@ const SaveButton = ({ name, symbol }: SaveButtonProps) => {
     }
   };
 
+  const buttonStyles = [styles.cardSaveButton, saved && styles.saved]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <button
-      className={styles.cardSaveButton}
+      className={buttonStyles}
       type="button"
       disabled={isLoading}
-      onClick={() => {
-        console.log(saveToDatabase());
-      }}
+      onClick={handleButtonClicked}
     >
-      <span>Save {isLoading && <Spinner />} </span>
+      <span>
+        {saved ? "Unsave" : "Save"} {isLoading && <Spinner />}{" "}
+      </span>
     </button>
   );
 };

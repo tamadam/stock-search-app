@@ -24,6 +24,7 @@ export type FormattedStockQuote = {
     timezone: string;
     currency: string;
     matchScore: string;
+    saved: boolean;
 };
 
 export type GlobalQuote = {

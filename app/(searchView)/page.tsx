@@ -7,6 +7,10 @@ import {
 } from "../types";
 import { Metadata } from "next";
 import { fetchData } from "../utils/fetchData";
+import prisma from "@/prisma/client";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/route";
+import { Stock } from "@prisma/client";
 
 interface SearchPageProps {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -27,6 +31,17 @@ const getQuotes = async (searchQuery: string) => {
 };
 
 const SearchPage = async ({ searchParams }: SearchPageProps) => {
+  const session = await getServerSession(authOptions);
+  const userId = session?.user.id;
+  let savedQuotes: Stock[] = [];
+  if (userId) {
+    savedQuotes = await prisma.stock.findMany({
+      where: {
+        userId,
+      },
+    });
+  }
+
   const searchQuery = Array.isArray(searchParams["query"])
     ? searchParams["query"][0]
     : searchParams["query"] ?? "";
@@ -46,6 +61,9 @@ const SearchPage = async ({ searchParams }: SearchPageProps) => {
         timezone: quote["7. timezone"],
         currency: quote["8. currency"],
         matchScore: quote["9. matchScore"],
+        saved: Boolean(
+          savedQuotes.find((saved) => saved.symbol === quote["1. symbol"])
+        ),
       };
     }
   );
