@@ -10,14 +10,16 @@
 }
 
 .cardSaveButton.saved {
-    background: #d10c0c;
+    color: #0ac31c;
+    background: transparent;
+    box-shadow: unset;
+    cursor: auto;
+}
 
+.cardSaveButton.saved:hover {
+    background: transparent;
 }
 
 .cardSaveButton:hover {
     background: #0ca61b;
-}
-
-.cardSaveButton.saved:hover {
-    background: #ff1818;
 }

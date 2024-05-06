@@ -59,10 +59,10 @@ const SaveButton = ({ name, symbol, saved }: SaveButtonProps) => {
       className={buttonStyles}
       type="button"
       disabled={isLoading}
-      onClick={handleButtonClicked}
+      onClick={!saved ? handleButtonClicked : () => {}}
     >
       <span>
-        {saved ? "Unsave" : "Save"} {isLoading && <Spinner />}{" "}
+        {saved ? "Saved" : "Save"} {isLoading && <Spinner />}{" "}
       </span>
     </button>
   );
