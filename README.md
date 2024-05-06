@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p>This Next.js application enables users to search for stock quotes and access related data through the Alphavantage public data source. The application operates using a free API key with a <b>daily limit of 25 calls</b>.</p>
+<p>The application is currently accessible via the following URL: https://stock-search-app-rho.vercel.app/</p>
 
-## Getting Started
+## Key features
+<p><b>Search-As-You-Type:</b> Utilizing a technique called <b>debounce</b>, the search functionality begins working as you type, with a 500ms delay. This approach helps eliminate unnecessary API calls triggered by every keypress, ensuring efficient and responsive search functionality.</p>
+<img src="https://github.com/tamadam/stock-search-app/assets/60942087/b91d8e8b-4dcd-4157-8899-8b788415e7a4" alt="stock search">
 
-First, run the development server:
+
+<p><b>Save Your Favorite Stocks:</b> Users can log in to the application using their Google account. Once logged in, they have the ability to save their favorite stocks. This feature eliminates the need to repeatedly search for the same stocks, providing convenience and time-saving benefits.</p>
+<img src="https://github.com/tamadam/stock-search-app/assets/60942087/a92bdcc5-db37-4bc2-bd3e-af971ad2ff59" alt="favourite stocks page" />
+
+<p><b>View Stock Details:</b> Users can access comprehensive information about the company, including stock quotes. Additionally, they have the option to examine graphs depicting total revenue and net income over past years.</p>
+<img src="https://github.com/tamadam/stock-search-app/assets/60942087/057ec10d-749d-42fa-81f0-cf95e844148e" alt="stock details" />
+
+## Running the Program in Development
+
+To run the program in development, you'll need to configure a <b>GoogleProvider</b> for authentication, obtain an <b>API key from Alphavantage</b>, and set up a Postgres database, for example, using <b>Supabase</b>. Once you've completed these steps, create a .env file and include the following variables:
+```
+DATABASE_URL=
+NEXTAUTH_URL=
+NEXTAUTH_SECRET=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+```
+
+Additionally, create a .env.local file for the API key:
+```
+ALPHAVANTAGE_API_KEY=
+```
+
+Then, start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
