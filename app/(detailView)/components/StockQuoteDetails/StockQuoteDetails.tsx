@@ -5,6 +5,7 @@ import {
 } from "@/app/types";
 import styles from "./StockQuoteDetails.module.css";
 import Link from "next/link";
+import Chart from "../Chart/Chart";
 
 interface StockQuoteDetailsProps {
   quote: FormattedGlobalQuote;
@@ -17,6 +18,18 @@ const StockQuoteDetails = ({
   companyData,
   incomeData,
 }: StockQuoteDetailsProps) => {
+  const incomeChartData = incomeData
+    .map((income) => {
+      return {
+        year: income.fiscalDateEnding.split("-")[0],
+        total: Number(income.totalRevenue) / 10000000,
+        net: Number(income.netIncome) / 10000000,
+      };
+    })
+    .sort((a, b) => {
+      return Number(a.year) - Number(b.year);
+    });
+
   return (
     <>
       <div className={styles.quoteDetailsWrapper}>
@@ -50,9 +63,25 @@ const StockQuoteDetails = ({
           </div>
         </div>
         <div className={`${styles.incomeWrapper} ${styles.detailCard}`}>
-          <h1 className={styles.sectionTitle}>Income</h1>
+          <h1 className={styles.sectionTitle}>
+            Total Revenue & Net income (10M)
+          </h1>
           <div className={styles.sectionContent}>
-            {incomeData.map((income) => {
+            <>
+              <Chart
+                incomeChartData={incomeChartData}
+                xKey="year"
+                lineKey="total"
+                description="Total revenue"
+              />
+              <Chart
+                incomeChartData={incomeChartData}
+                xKey="year"
+                lineKey="net"
+                description="Net income"
+              />
+            </>
+            {/*           {incomeData.map((income) => {
               return (
                 <div key={income.fiscalDateEnding}>
                   <h2 className={styles.incomeYear}>
@@ -69,7 +98,7 @@ const StockQuoteDetails = ({
                   </div>
                 </div>
               );
-            })}
+            })} */}
           </div>
         </div>
         <div className={`${styles.goBackWrapper} ${styles.detailCard}`}>

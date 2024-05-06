@@ -5,7 +5,7 @@
     "company"
     "quote"
     "income";
-    grid-template-rows: 4ch repeat(3, 1fr);
+    grid-template-rows: 4ch repeat(3, fit-content);
     grid-template-columns: 1fr;
     column-gap: 1em;
     row-gap: 2em;
@@ -22,6 +22,10 @@
 
 .incomeWrapper {
     grid-area: income;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
 }
 
 .goBackWrapper {
@@ -41,10 +45,12 @@
 .sectionTitle {
     font-weight: bold;
     font-size: 1.4em;
+    margin-block-end: 0.4em;
 }
 
 .sectionContent {
     margin-block-end: 0.4em;
+    width: 100%;
 }
 
 .companyName {
@@ -63,9 +69,9 @@
     .quoteDetailsWrapper {
         grid-template-areas:
         "company income"
-        "quote income"
+        "quote ."
         "goback goback";
-        grid-template-rows: fit-content(8ch) fit-content(8ch) 1fr;
+        grid-template-rows: fit-content fit-content 1fr;
 /*         grid-template-rows: repeat(2, 1fr) 4ch; */
         grid-template-columns: repeat(2, 1fr);
     }
