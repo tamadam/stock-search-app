@@ -9,8 +9,8 @@ import { Metadata } from "next";
 import { fetchData } from "../utils/fetchData";
 import prisma from "@/prisma/client";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
 import { Stock } from "@prisma/client";
+import authOptions from "../utils/authOptions";
 
 interface SearchPageProps {
   searchParams: { [key: string]: string | string[] | undefined };

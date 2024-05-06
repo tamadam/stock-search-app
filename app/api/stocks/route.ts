@@ -1,8 +1,8 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/prisma/client";
 import { stocksSchema } from "@/app/validationSchemas";
+import authOptions from "@/app/utils/authOptions";
 
 export async function POST(request: NextRequest) {
     try {

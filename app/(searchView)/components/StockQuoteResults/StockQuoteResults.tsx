@@ -2,9 +2,9 @@ import { FormattedStockQuote } from "@/app/types";
 import Link from "next/link";
 import styles from "./StockQuoteResults.module.css";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { MdArrowForwardIos } from "react-icons/md";
 import SaveButton from "../SaveButton/SaveButton";
+import authOptions from "@/app/utils/authOptions";
 
 interface StockQuoteResultsProps {
   quotes: FormattedStockQuote[];

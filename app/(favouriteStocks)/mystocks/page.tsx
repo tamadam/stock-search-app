@@ -1,7 +1,7 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/prisma/client";
 import { getServerSession } from "next-auth";
 import MyStocksList from "./components/MyStocksList/MyStocksList";
+import authOptions from "@/app/utils/authOptions";
 
 const FavouriteStocksPage = async () => {
   const session = await getServerSession(authOptions);
